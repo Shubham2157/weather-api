@@ -1,6 +1,7 @@
 var cors = require('cors')
 const express = require('express')
 const script = require('./weather_data_scrapper_script')
+const PORT = process.env.PORT || 4000
 
 const app = express()
 
@@ -15,6 +16,6 @@ app.get("/api",cors(), (req, res) => {
 })
 
 
-app.listen(4000, () => {
-    console.log(`server started at 4000`);
+app.listen(PORT, () => {
+    console.log(`server started at ${PORT}`);
 })

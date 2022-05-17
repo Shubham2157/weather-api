@@ -53,7 +53,13 @@ module.exports = (req, res) => {
             // get next few days' weather
             next_days = []
             days = soup.find("div", attrs = { "id": "wob_dp" })
+
+            let date = new Date();
+            let date_day = date.getDate() - 1;
+
             days.findAll("div", attrs = { "class": "wob_df" }).forEach(day => {
+
+                date_full = (date_day += 1) + "/"+ date.getMonth() + "/" + date.getFullYear();
                 // extract the name of the day
                 day_name = day.findAll("div")[0].attrs['aria-label']
                 // get weather status for that day
@@ -63,7 +69,7 @@ module.exports = (req, res) => {
                 max_temp = temp[0].text
                 // minimum temparature in Celsius, use temp[3].text if you want fahrenheit
                 min_temp = temp[2].text
-                next_days.push({ "name": day_name, "weather": weather, "max_temp": max_temp, "min_temp": min_temp })
+                next_days.push({ "name": day_name, "weather": weather, "max_temp": max_temp, "min_temp": min_temp, "date": date_full })
             });
 
             result.next_days_data = next_days
@@ -71,5 +77,42 @@ module.exports = (req, res) => {
 
             res.json(result)
 
-        });
+        }).catch(function (error) {
+            if (error.response) {
+              // The request was made and the server responded with a status code
+              // that falls out of the range of 2xx
+              //console.log(error.response.data);
+              console.log("ERROR IN RESPOSE BLOCK");
+            //   console.log(error.response.status);
+            //   console.log(error.response.headers);
+
+            res.json({
+                "message": "Error Occurred!!!!!, Please try again later",
+                "Ststus": 500
+            })
+
+
+            } else if (error.request) {
+              // The request was made but no response was received
+              // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+              // http.ClientRequest in node.js
+             // console.log(error.request);
+              console.log("ERROR IN REQUEST BLOCK");
+              
+              res.json({
+                "message": "Error Occurred!!!!!, Please try again later",
+                "Ststus": 500
+            })
+
+            } else {
+              // Something happened in setting up the request that triggered an Error
+              //console.log('Error', error.message);
+              console.log("ERROR 500");              
+              res.json({
+                "message": "Error Occurred!!!!!, Please try again later",
+                "Ststus": 500
+            })
+            }
+                    
+          });;
 }
