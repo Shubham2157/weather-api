@@ -7,7 +7,7 @@ module.exports = (req, res) => {
     const LANGUAGE = "en-US,en;q=0.5"
 
     var URL = "https://www.google.com/search?lr=lang_en&ie=UTF-8&q=weather"
-    const region = req.query.l || "delhi"
+    const region = req.query.place || "delhi"
     URL += region
 
     axios({

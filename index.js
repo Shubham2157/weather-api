@@ -10,9 +10,13 @@ app.get("/", (req, res) => {
 })
 
 app.get("/api",cors(), (req, res) => {
-    // /api?l=jamtara
-    console.log(req.query.l || "delhi");
+    // /api?place=jamtara
+    console.log(req.query.place || "delhi");
     script(req, res)
+})
+
+app.get("*", (req, res) =>{
+    res.send("gusse me idhar udar mat niklo!!!! go to <a href='./api'>/api</a>")
 })
 
 
