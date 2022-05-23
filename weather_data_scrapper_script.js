@@ -13,7 +13,7 @@ module.exports = (req, res) => {
     axios({
         method: 'get',
         url: URL,
-        headers: { "User-Agent": USER_AGENT, "Accept-Language": LANGUAGE, "Content-Language": LANGUAGE }
+        headers: { "User-Agent": USER_AGENT, "Accept-Language": LANGUAGE, "Content-Language": LANGUAGE, "Accept-Charset": "ISO-8859-1,utf-8;q=0.7,*;q=0.3" }
     })
         .then(function (response) {
             var soup = new JSSoup(response.data)
