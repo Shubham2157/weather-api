@@ -17,6 +17,8 @@ module.exports = (req, res) => {
     })
         .then(function (response) {
             var soup = new JSSoup(response.data)
+            //var language = window.navigator.userLanguage || window.navigator.language;
+            //console.log(navigator.languages) //works IE/SAFARI/CHROME/FF
             //console.log(response.data)
 
             //console.log(soup.find("div", attrs={"id": "wob_loc"}).text);

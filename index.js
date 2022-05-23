@@ -11,6 +11,7 @@ app.get("/", (req, res) => {
 
 app.get("/api",cors(), (req, res) => {
     // /api?place=jamtara
+    console.log(req.headers["accept-language"]);
     console.log(req.query.place || "delhi");
     script(req, res)
 })
